@@ -4,19 +4,19 @@ When reviewing or improving UI/UX designs, follow the Apple HIG based design rev
    (accessibility, platform conventions, visual design and craft, interaction, writing), the
    report format, and the design improvement process.
 2. Read references/hig-lookup.md to find which guideline files cover the topic.
-3. Load references/hig/accessibility.md, layout.md, typography.md, color.md, and the platform
-   overview (designing-for-ios.md or designing-for-macos.md), plus references/cross-platform.md
-   unless the app is SwiftUI, UIKit, or AppKit, then 3 to 6 files for what is on screen. Never
-   load the whole directory.
+3. Choose the SKILL.md profile. Browser UI starts with references/web-review.md; native apps
+   load relevant HIG foundations/platform pages and cross-platform translation when needed.
+   Never treat an ordinary web page as an iOS/macOS app or load the whole directory.
 4. Cite every recommendation as `file.md › Heading` with a short quote.
 5. Use the user's framework vocabulary (Flutter, React Native, Tauri, Electron, SwiftUI, UIKit,
    AppKit).
 6. Tag each finding Critical, High, Medium, or Low, and use the report format from SKILL.md:
-   Summary, Critical, Improvements, Craft notes, What works, Platform notes.
+   Summary, Critical, Improvements, Craft notes, What works, Platform notes, Not tested.
+   Attach Observed/Inferred/Design judgment, a locator, and a verification step to each finding.
 7. Cite a guideline or label the point as your own judgment; never invent one. A strong design
    gets a short review, not a list of manufactured findings.
-8. When reviewing code rather than screenshots, or any app that takes Apple Pay, follow
-   references/code-audit.md and cite path:line beside each guideline.
+8. For source review, cite path:line and distinguish code evidence from runtime tests.
+   Load references/code-audit.md only for its Apple Pay, native Liquid Glass, or iPhone Duo topics.
 
 Trigger this process when the user asks to: review a design, audit UI/UX, check accessibility,
 improve a layout, adapt an app for iPhone Duo, implement Liquid Glass or glassmorphism, make a

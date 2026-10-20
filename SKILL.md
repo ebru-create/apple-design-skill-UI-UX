@@ -1,25 +1,14 @@
 ---
 name: apple-design
 description: >
-  Cross-platform UI/UX design reviewer grounded in Apple's Human Interface Guidelines (123 pages
-  pulled from developer.apple.com, including 57 component pages) plus a design-craft lens for
-  distinctive, non-templated work. Use it to audit, review, critique, or improve any mobile app
-  (iOS, Flutter, React Native) or desktop app (macOS, Tauri, Electron) design: design review, UI
-  audit, HIG compliance, accessibility audit, dark mode, Liquid Glass or glassmorphism, navigation
-  structure, iPhone Duo or foldable layouts, Apple Pay buttons and marks, widgets and Live
-  Activities, onboarding, forms, app icons, generative AI UX, App Review rejections over design or
-  branding, or requests like "make this look less generic". Also use whenever the user shares
-  screenshots, mockups, wireframes, Figma exports, or UI code and wants feedback, even if they
-  only say "review my design" or "is this good UI", or asks to audit a codebase or pull request.
-  Works for SwiftUI, UIKit, AppKit, Flutter, React Native, Tauri, and Electron.
+  Review or improve UI/UX from screenshots, mockups, UI code, or a live interface.
+  Applies Apple's Human Interface Guidelines to native mobile and desktop apps, and
+  web standards plus transferable design principles to websites and browser apps.
+  Use for visual hierarchy, typography, layout, accessibility, interaction, forms,
+  navigation, or design-craft reviews; distinguish measured defects from design judgment.
 ---
 
 # Apple Design Skill
-
-You are two people at once: a senior design reviewer who knows Apple's Human Interface Guidelines
-cold, and the design lead of a small studio whose clients pay for a point of view. The first keeps
-a design honest against the platform. The second keeps it from looking like every other app. Every
-review you write carries both.
 
 The guidelines live in this skill as 123 Markdown pages pulled from developer.apple.com, plus one
 curated guide. They apply to native Apple apps and, as design principles, to Flutter, React Native,
@@ -36,6 +25,7 @@ Everything lives under `references/` relative to this skill's directory.
 | `references/hig/liquid-glass.md` | Curated guide to the Liquid Glass material with a review checklist and Flutter, Tauri, Electron, and React Native translation |
 | `references/cross-platform.md` | Apple's names in Flutter, React Native, Tauri, and Electron terms, plus the conventions to check in each |
 | `references/code-audit.md` | What to search for in source code: hand-drawn Apple Pay buttons and marks, Liquid Glass misuse, and code that blocks iPhone Duo adaptation, each with its citation and replacement |
+| `references/web-review.md` | Browser UI routing, WCAG 2.2 AA checks, CSS measurement rules, and the limits of screenshot/code evidence |
 | `scripts/pull-hig.mjs` | Regenerates the references from Apple's site. Not needed for reviews |
 
 Rules for using them:
@@ -43,16 +33,21 @@ Rules for using them:
 - **Read before you cite.** Open the file and quote the guideline. Do not review from memory;
   Apple changed 15 pages in June 2026, rewrote `layout.md` in September, and updated
   `widgets.md` and `live-activities.md` in October.
-- **Load about 8 to 12 files per review**, never the whole directory: the always-load set, then
-  3 to 6 more for what is on screen.
+- **Load relevant references**, never the whole directory: the profile below, then the topics
+  needed for the artifact. A narrow review does not need a fixed file quota.
 - **Cite file and heading**, for example `buttons.md › Style`. If no reference covers a point,
   say it is your judgment.
 
-### Always load
+### Choose the review profile
 
-`accessibility.md`, `layout.md`, `typography.md`, `color.md`, plus `designing-for-ios.md` or
-`designing-for-macos.md` (or both) for the platform in front of you. Unless the app is SwiftUI,
-UIKit, or AppKit, also load `references/cross-platform.md` to translate Apple's terms for it.
+- **Websites and browser apps:** load `references/web-review.md` first. Use HIG layout,
+  typography, color, and writing pages as design references when relevant; do not load an iOS
+  or macOS overview merely because the browser runs on that device.
+- **Native mobile apps:** load `accessibility.md`, `layout.md`, `typography.md`, `color.md`,
+  and the relevant iOS/iPadOS overview. For Flutter/React Native also load `references/cross-platform.md`.
+- **Desktop apps:** load the same foundations and the relevant macOS overview; for Tauri/Electron
+  also load `references/cross-platform.md`. Separate embedded web content from native app chrome.
+- For Android-only UI, use transferable principles; do not report Apple conventions as Android requirements.
 
 ### Load by what is on screen
 
@@ -103,8 +98,8 @@ filter: a screen that breaks a principle has a bigger problem than any single gu
 
 Before judging anything, pin down:
 
-- **Platform** and **framework**: mobile or desktop; Flutter, React Native, SwiftUI, UIKit,
-  Tauri, Electron, or other.
+- **Surface** and **framework**: browser website/app, native mobile, or desktop app; identify
+  the implementation and separate browser content from native wrappers when both exist.
 - **App category** and **audience**.
 - **The artifact**: screenshots, mockups, wireframes, code, or a description. Say what you can and
   cannot verify from it. Contrast is computed from hex values, not estimated from a JPEG.
@@ -117,12 +112,13 @@ Infer what you can; ask only if the answer changes the review.
 
 Scope and limits:
 
-- A web app or an Android-only app gets the principles and the foundations (accessibility, color,
-  typography, layout, writing) but not Apple's platform conventions. Say which parts apply.
+- A web app uses the web profile, including on an iPhone. Apply its standards, not native point
+  sizes, system navigation, Liquid Glass, or App Store rules to an ordinary browser page.
 - If the platform can't be determined and it changes the verdict, ask; otherwise review for both.
 - Screenshots support layout, hierarchy, and copy review. Contrast and sizes need real values;
-  estimate only when you can sample the colors, and mark estimates as such. A limit is not a
-  finding.
+  sampled image colors are estimates, not computed styles. A limit is not a finding.
+- Record approved brand choices and product constraints. A design recommendation does not
+  establish a new access rule, price, or MVP requirement.
 
 ### Step 2: Load references
 
@@ -131,27 +127,26 @@ Apple-specific sentence and translate the vocabulary.
 
 ### Step 3: Audit through five lenses, in this order
 
-Each lens opens with the files its rules were distilled from. The always-load set already covers
-Lens 1 and most of Lens 3. Open the other files when the design touches their area, and cite only
-files you actually opened.
+Use the selected profile and cite only files you actually opened.
 
-#### Lens 1: Accessibility (failures are Critical)
+#### Lens 1: Accessibility
 
-Distilled from `accessibility.md`, `typography.md`, and `color.md`:
+For browser content, use `references/web-review.md` for thresholds, units, and exceptions.
+For native apps, use `accessibility.md`, `typography.md`, and `color.md`; preserve their platform scope.
 
 - Text scales with the system setting and layouts survive the largest sizes with hierarchy intact.
-- Type sizes: mobile default 17 pt, minimum 11 pt; desktop default 13 pt, minimum 10 pt. Avoid
-  light and thin weights for small text.
-- Contrast: text up to 17 pt needs 4.5:1; text at 18 pt or larger, or bold text, needs 3:1.
-  Compute it from actual values when you have them and show the numbers.
-- Controls: mobile default 44 by 44 pt, minimum 28 by 28 pt; desktop default 28 by 28 pt, minimum
-  20 by 20 pt. Spacing between controls matters as much as size.
+- Measure type, contrast, and interactive bounds using the selected profile. Report units,
+  text weight, actual foreground/background, state, and the applicable rule. Boldness alone
+  does not qualify web text for the large-text contrast exception.
 - Nothing is conveyed by color alone. Every icon-only control has a text label for screen readers.
   Keyboard-only use works on desktop.
 - Motion is optional and never the only carrier of meaning. Reduced motion, reduced transparency,
   and increased contrast all have an answer.
 
 #### Lens 2: Platform conventions (failures are usually High)
+
+The native conventions below apply only to their named platforms. For browser UI, check web
+semantics, keyboard/focus behavior, responsive navigation, and forms via `references/web-review.md`.
 
 Mobile, distilled from `designing-for-ios.md`, `tab-bars.md`, `toolbars.md`, `sheets.md`,
 `search-fields.md`, `gestures.md`, `layout.md`, and `designing-for-iphone-duo.md`:
@@ -238,7 +233,7 @@ Distilled from `feedback.md`, `loading.md`, `modality.md`, `alerts.md`, `undo-an
 - Destructive, irreversible actions get a warning and a Cancel. Undo covers the rest.
 - Modal views have an obvious way out and a single short task.
 - Data entry pulls from the system, offers choices over typing, validates dynamically, and never
-  prepopulates a password.
+  ships a hard-coded password. On the web, allow password-manager autofill and paste.
 
 #### Lens 5: Content and writing (findings are usually Medium)
 
@@ -248,7 +243,8 @@ Distilled from `writing.md`, plus the copy rules below:
   the whole flow: a "Publish" button produces "Published".
 - Capitalization follows the platform (Apple uses title-style for buttons, menu items, and titles;
   Material uses sentence case) and is applied consistently. Mixed conventions on one screen are a
-  finding.
+  finding only when they conflict with the product's language and style. Web copy follows its
+  established locale and brand; do not impose English title case on other languages.
 - Errors say what went wrong and how to fix it, in the interface's voice, without apologizing.
   Empty screens invite the next action.
 - Names come from what people control and recognize, not from how the system is built.
@@ -258,29 +254,24 @@ Distilled from `writing.md`, plus the copy rules below:
 
 ```text
 ## Design review: <name>
-
 ### Summary
-Two or three sentences. Overall rating: Excellent / Good / Needs work / Critical issues.
-Name the design's thesis and the one thing it will be remembered by, or that it lacks one.
-
+State the profile, artifact, tested states/viewports, and limits; rate only the reviewed scope.
+Overall rating: Excellent / Good / Needs work / Critical issues.
 ### Critical
-Must fix: accessibility failures, convention breaks that confuse people.
-- **What**: the problem, with numbers when you have them
-- **Why**: the principle, cited as `file.md › Heading` with a short quote
-- **Fix**: the concrete change, in the user's framework
-
 ### Improvements
-Should fix. Same format, each finding tagged High, Medium, or Low.
-
 ### Craft notes
-Point of view, typography, signature element, restraint. Same format with tags, or a short
-paragraph when the design is strong.
-
+Each finding in those sections:
+- **What / Impact / Severity**: the affected task and Critical, High, Medium, or Low
+- **Evidence**: Observed, Inferred, or Design judgment; artifact locator, state, measurement
+- **Why**: applicable guideline file and heading, or web criterion and source URL
+- **Fix**: a concrete change in the user's framework, preserving approved constraints
+- **Verify**: the check that would establish the fix
 ### What works
-Patterns to keep. Be specific so they survive the next iteration.
-
+Specific patterns to preserve.
 ### Platform notes
-Anything specific to mobile versus desktop, to iPhone Duo, or to the framework.
+Relevant profile-specific notes.
+### Not tested
+Missing states or evidence and the checks needed; not confirmed defects.
 ```
 
 Include only the sections that have content; Summary always appears. A design with no Critical
@@ -288,12 +279,18 @@ or High findings gets a short review: Summary, What works, and a few Improvement
 
 Severity, tagged on every finding:
 
-- **Critical**: accessibility failures, unusable on some devices or sizes, conventions broken in
-  ways that confuse.
-- **High**: real friction, poor contrast or readability, looks foreign on its platform, templated
-  with no point of view.
+- **Critical**: an essential task is blocked with no practical alternative, supported by evidence.
+- **High**: substantial task friction or an established accessibility failure with meaningful impact.
 - **Medium**: suboptimal patterns, missed system components, small inconsistencies.
 - **Low**: polish and edge cases.
+Keep accessibility criterion/level separate from severity. A style preference is not an
+accessibility failure; missing evidence is Not tested, not a Critical finding.
+
+Evidence labels: **Observed** means directly established in the supplied artifact or a recorded
+interaction, not necessarily run in a browser. **Inferred** means supported but not reproduced;
+state the assumption and check needed. **Design judgment** means a preference, not a mandatory
+rule. Attach a URL/selector, screenshot region, or file:line as appropriate. Do not call source
+inspection a runtime test or claim whole-site conformance from a few screens.
 
 Critical findings fill the Critical section; everything else goes to Improvements or Craft notes
 with its tag. The Summary rating follows from the tags: **Critical issues** when any Critical
@@ -307,6 +304,9 @@ Citation format:
 
 ## Specialized review modes
 
+These modes do not override the surface profile. On the web, native appearance, component,
+device, and App Store rules apply only to an actual relevant integration, not ordinary browser UI.
+
 - **App icon.** `app-icons.md`, `icons.md`. Layered composition, clear edges, centered content,
   filled overlapping shapes, no text unless essential, no UI replicas, dark and tinted variants
   built from the light icon.
@@ -318,13 +318,13 @@ Citation format:
 - **Liquid Glass.** `liquid-glass.md`, `materials.md`, `color.md`, then the component pages in
   play. Use the checklist in the curated guide, and `references/code-audit.md` when you have the
   code. Trigger on "Liquid Glass", "glassmorphism", "frosted", "blur", or any translucent bar.
-- **Apple Pay.** `apple-pay.md`, `buttons.md`, and `references/code-audit.md`. Any Apple Pay
-  button not drawn by Apple's API, any mark not Apple's unaltered artwork, the Apple logo standing
-  in for the word Apple, or a text-only Apple Pay option beside logos is Critical: App Store Review
-  Guideline 4.9 rejects it. Include web checkouts the app opens.
-- **Code audit.** When given source code or a repository, follow `references/code-audit.md`:
-  search, read each match, and cite `path:line` beside the guideline. It covers Apple Pay,
-  Liquid Glass, and iPhone Duo in code; the lenses above still apply to the rest.
+- **Apple Pay.** `apple-pay.md`, `buttons.md`, and `references/code-audit.md`. Check button
+  provenance, unaltered marks, naming, and payment-option presentation. Apply the common severity
+  rubric; distinguish branding compliance from blocked payment. Verify any claimed submission
+  consequence against current official rules and the actual distribution context.
+- **Code audit.** Cite `path:line` and separate source evidence from runtime tests. Load
+  `references/code-audit.md` for its Apple Pay, native Liquid Glass, and iPhone Duo topics;
+  use the selected profile and review lenses for other code.
 - **Navigation structure.** `tab-bars.md`, `sidebars.md`, `split-views.md`, `toolbars.md`,
   `searching.md`, `layout.md`. Map the hierarchy, count tabs and levels, check that every section
   is reachable, that the current location is always visible, and that tablet, desktop, and iPhone
@@ -360,7 +360,8 @@ studio.
 
 1. **Ground it in the subject.** Name the product, its audience, and the screen's single job.
    Draw the visual world from the subject's own materials, artifacts, and vernacular, and from
-   anything you know about the user's brand.
+   anything you know about the user's brand. Inventory existing tokens and preserve approved
+   product rules; identify optional changes separately.
 2. **Plan a compact token system** before touching layout:
    - **Color**: four to six named hex values with roles (surface, content, accent, signal), each
      with light and dark variants and a contrast figure against its surface.

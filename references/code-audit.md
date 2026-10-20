@@ -24,8 +24,10 @@ it. Every rule cites the guideline page it comes from; open that page before you
 App Store Review Guideline 4.9 requires apps that use Apple Pay to use its branding and interface
 elements as described in the Apple Pay Marketing Guidelines and the Human Interface Guidelines. A
 hand-drawn button or mark is a common rejection, and a convincing recreation is still a
-recreation. Load `hig/apple-pay.md` for every check below. Findings here are **Critical**,
-because they block release.
+recreation. Load `hig/apple-pay.md` for every check below. Apply the common impact-based
+severity rubric in `SKILL.md`; a branding mismatch alone does not establish blocked payment
+or a release rejection. Verify current official rules and distribution context before claiming
+a submission consequence.
 
 ### What to search for
 

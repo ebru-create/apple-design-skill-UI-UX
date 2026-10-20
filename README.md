@@ -7,21 +7,26 @@ against 123 HIG pages pulled straight from developer.apple.com, translates Apple
 adds a design-craft lens so the result feels at home on the platform without looking like a
 template.
 
+This fork adds a browser-specific review profile and evidence labels to the
+[original Apple Design Skill](https://github.com/dickwu/apple-design-skill). Websites use
+WCAG 2.2 AA checks with CSS units and exceptions; native apps retain their HIG profiles.
+Apple's generated reference pages are unchanged by these hand-written additions.
+
 ## Install
 
 ### With the skills CLI
 
 ```bash
-npx skills add dickwu/apple-design-skill
+npx skills add ebru-create/apple-design-skill-UI-UX
 ```
 
 This works for Claude Code, Codex, Cursor, Antigravity, OpenCode, Windsurf, and every other agent the
 [skills CLI](https://skills.sh) supports. Useful variations:
 
 ```bash
-npx skills add dickwu/apple-design-skill -a claude-code   # install for one agent only
-npx skills add dickwu/apple-design-skill -g               # user-wide instead of this project
-npx skills add dickwu/apple-design-skill --list           # show what would be installed
+npx skills add ebru-create/apple-design-skill-UI-UX -a claude-code   # install for one agent only
+npx skills add ebru-create/apple-design-skill-UI-UX -g               # user-wide instead of this project
+npx skills add ebru-create/apple-design-skill-UI-UX --list           # show what would be installed
 npx skills update apple-design                            # pull the latest version later
 ```
 
@@ -30,40 +35,41 @@ npx skills update apple-design                            # pull the latest vers
 Claude Code reads skills from `.claude/skills/` in a project or `~/.claude/skills/` for the user:
 
 ```bash
-git clone https://github.com/dickwu/apple-design-skill.git ~/.claude/skills/apple-design
+git clone https://github.com/ebru-create/apple-design-skill-UI-UX.git ~/.claude/skills/apple-design
 ```
 
 The skill triggers on design-review requests and is also available as `/apple-design`.
 
 ### Cursor
 
-Install with `npx skills add dickwu/apple-design-skill -a cursor`, or clone the repository into
+Install with `npx skills add ebru-create/apple-design-skill-UI-UX -a cursor`, or clone the repository into
 your project and keep its `.cursorrules` next to your own rules. Then ask Cursor:
 *"Review this screen against Apple's HIG"*.
 
 ### Codex
 
-Install with `npx skills add dickwu/apple-design-skill -a codex`, or add the repository as a
+Install with `npx skills add ebru-create/apple-design-skill-UI-UX -a codex`, or add the repository as a
 submodule and point `AGENTS.md` at it:
 
 ```bash
-git submodule add https://github.com/dickwu/apple-design-skill.git .design-rules
+git submodule add https://github.com/ebru-create/apple-design-skill-UI-UX.git .design-rules
 ```
 
 ```markdown
 ## Design reviews
 
-Follow `.design-rules/SKILL.md`. Route topics with `.design-rules/references/hig-lookup.md` and
-load the relevant `.design-rules/references/hig/*.md` files before giving design feedback.
+Follow `.design-rules/SKILL.md` and select its review profile. For browser UI, start with
+`.design-rules/references/web-review.md`; route relevant Apple design references through
+`.design-rules/references/hig-lookup.md`.
 ```
 
 ### Antigravity
 
-Install with `npx skills add dickwu/apple-design-skill -a antigravity`, or clone the repository into
+Install with `npx skills add ebru-create/apple-design-skill-UI-UX -a antigravity`, or clone the repository into
 `.agents/skills/apple-design` in your project or global `~/.gemini/antigravity/` configuration:
 
 ```bash
-git clone https://github.com/dickwu/apple-design-skill.git .agents/skills/apple-design
+git clone https://github.com/ebru-create/apple-design-skill-UI-UX.git .agents/skills/apple-design
 ```
 
 You can also keep its `GEMINI.md` next to your own project rules to activate Apple HIG design
@@ -110,6 +116,16 @@ your framework. Specialized modes cover app icons, accessibility audits, dark mo
 navigation structure, iPhone Duo, Apple Pay, code audits, onboarding and permissions, forms,
 generative AI, widgets and Live Activities, and single components.
 
+Browser reviews start with `references/web-review.md`. A website on an iPhone is still a website:
+native tab bars, font minima, or a ban on theme switches are not web requirements. Findings carry
+an **Observed**, **Inferred**, or **Design judgment** label, an artifact locator, impact/severity,
+an applicable rule, and a verification step. Missing evidence goes under **Not tested**; selected
+screen reviews do not establish whole-site WCAG conformance. Preserve approved brand and product
+rules rather than treating a design suggestion as a new access, pricing, or MVP decision.
+
+Example: *"Review this existing website on mobile and desktop. Preserve its brand and approved
+product scope. Report evidence and concrete fixes; identify states you could not test."*
+
 **iPhone Duo mode** walks the outer display, the inner display, a partial fold, and Split View
 against Apple's iPhone Duo guidance: layouts built from size classes instead of fixed widths, the
 same functions on both displays, toolbars and tab bars left in the system's default placement,
@@ -139,6 +155,7 @@ apple-design-skill/
 ├── scripts/
 │   └── pull-hig.mjs             # Re-pulls the guidelines from developer.apple.com
 └── references/
+    ├── web-review.md            # Browser standards, CSS units, exceptions, evidence limits
     ├── hig-lookup.md            # Generated routing table with Apple's summaries and change dates
     ├── cross-platform.md        # Apple's names in Flutter, React Native, Tauri, Electron terms
     ├── code-audit.md            # Code patterns for Apple Pay, Liquid Glass, and iPhone Duo
@@ -182,6 +199,8 @@ raw JSON for instant re-runs, and `--no-prune` to keep files the crawl no longer
 script twice produces identical output, so a clean `git status` after a second run is the test.
 
 `AGENTS.md` lists the checks to run before committing a refresh.
+Behavioral review cases and their evaluation procedure live in `tests/review-cases.json` and
+`tests/review-cases.md`; they test scoped decisions, not whether an answer repeats a phrase.
 
 ## Sponsor
 

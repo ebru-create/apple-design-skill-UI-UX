@@ -14,14 +14,14 @@ a generated lookup table, and the script that regenerates all of it.
    the five audit lenses, the report format, and the improvement process.
 2. Open `references/hig-lookup.md` to route a topic to a file. It is grouped by Apple's sections
    and carries Apple's one-line summary of every page.
-3. Load the always-load set (`accessibility.md`, `layout.md`, `typography.md`, `color.md`, plus
-   `designing-for-ios.md` or `designing-for-macos.md`, plus `references/cross-platform.md` unless
-   the app is SwiftUI, UIKit, or AppKit) and 3 to 6 more files for what is on screen. Never load
-   the whole directory.
+3. Select the profile in `SKILL.md`: browser UI starts with `references/web-review.md`; native
+   mobile/desktop UI loads the relevant HIG foundations and platform overview. Cross-platform
+   native apps also use `references/cross-platform.md`. Load additional topics only as needed.
 4. Quote the guideline and cite it as `file.md › Heading`. Use the user's framework vocabulary
    (Flutter, React Native, Tauri, Electron, SwiftUI, UIKit, AppKit).
 5. Write the report in the `SKILL.md` format: Summary, Critical, Improvements, Craft notes,
-   What works, Platform notes. Each finding has a What, a Why with a citation, and a Fix.
+   What works, Platform notes, Not tested. Each finding identifies impact/severity, evidence
+   (Observed, Inferred, or Design judgment), a locator, applicable rule, fix, and verification.
 
 ## File map
 
@@ -38,6 +38,10 @@ a generated lookup table, and the script that regenerates all of it.
 | `references/hig/liquid-glass.md` | Curated Liquid Glass guide; the script never touches it | Yes |
 | `references/cross-platform.md` | Apple's vocabulary and conventions for Flutter, React Native, Tauri, and Electron | Yes |
 | `references/code-audit.md` | Code patterns to search for (Apple Pay, Liquid Glass, iPhone Duo), with citations and replacements | Yes |
+| `references/web-review.md` | Browser-specific standards, units, exceptions, and evidence limits | Yes |
+| `tests/review-cases.json` | Raw scenarios for independent behavioral review | Yes |
+| `tests/review-cases.md` | Evaluation procedure and expected decision boundaries | Yes |
+| `tests/review-evaluation.md` | Dated, scoped behavioral evaluation and its limits | Yes |
 | `scripts/pull-hig.mjs` | Pull script, Node 18 or newer, no dependencies | Yes |
 
 ## Refreshing the references
@@ -84,7 +88,9 @@ npx skills add . --list                                           # must find th
 ```
 
 Also confirm that every guideline file named in `SKILL.md` exists in `references/hig/`. Ignore
-the `file.md` placeholder in the report template and `hig-lookup.md`, which lives one level up.
+placeholder paths; resolve `references/...` paths from the repository root. For review-routing,
+measurement, or evidence changes, evaluate `tests/review-cases.json` against the expectations in
+`tests/review-cases.md`. A syntax check or matching a phrase does not prove review behavior.
 
 ## Conventions
 
