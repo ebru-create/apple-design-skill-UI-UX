@@ -1,0 +1,98 @@
+[
+  {
+    "id": "small-bold-web-text",
+    "request": "Review this browser checkout button for WCAG 2.2 AA. Report only what this artifact establishes.",
+    "artifact": "checkout.html:12 <button id='pay' style='font-size:16px;font-weight:700;color:#888;background:#fff;width:120px;height:32px'>Continue</button>",
+    "evidence": "Supplied computed CSS values match the markup. Foreground/background are opaque, with measured contrast 3.5448862153:1. Interactive bounding box is 120 by 32 CSS px. No browser session, focus trace, or other states supplied."
+  },
+  {
+    "id": "large-web-text-and-target",
+    "request": "Review the contrast and target size of this browser control at WCAG 2.2 AA.",
+    "artifact": "controls.html:8 <button id='expand' aria-label='Expand details'>+</button>",
+    "evidence": "Supplied computed styles: 24 CSS px regular text, opaque #888 on #fff, measured contrast 3.5448862153:1. The interactive target is exactly 24 by 24 CSS px. Its focus behavior is not supplied."
+  },
+  {
+    "id": "screenshot-without-measurements",
+    "request": "The small print looks faint in this compressed screenshot. Does it fail contrast, and does the dialog support a keyboard?",
+    "artifact": "Screenshot description: a light gray paragraph and an open dialog with a close icon. Capture scale, actual pixel file, computed styles, DOM, and interaction recordings are unavailable.",
+    "evidence": "Description only; no values or keyboard test."
+  },
+  {
+    "id": "web-on-iphone-brand-and-access",
+    "request": "Review this browser community website on iPhone. Keep approved typography and the member-only directory. Give suggestions only.",
+    "artifact": "Approved product rules: member directory requires sign-in; public project browsing is allowed. Brand: black-and-white photos, serif display headings, Turkish sentence case. Header has a hamburger menu and a manual light/dark switch.",
+    "evidence": "No measured styles or interaction test supplied. The site is a browser page, not a native app or App Store submission."
+  },
+  {
+    "id": "native-ios-control",
+    "request": "Review this native SwiftUI action for accessibility; explain the applicable platform, not web conformance.",
+    "artifact": "Editor.swift:20 Button(\"Save\") { save() }.frame(width: 44, height: 44)",
+    "evidence": "The supplied native layout has a 44 by 44 point hit region. No color values, Dynamic Type test, VoiceOver recording, or simulator run supplied."
+  },
+  {
+    "id": "web-size-spacing-exception",
+    "request": "Does this browser toolbar fail WCAG 2.2 AA target size?",
+    "artifact": "Toolbar geometry at 100% zoom in CSS px: two isolated square button targets, A at x=0,y=0,width=20,height=20 and B at x=24,y=0,width=20,height=20. No other targets nearby. Both are separate buttons, not inline text links.",
+    "evidence": "Interactive bounds are supplied. No screenshot scaling conversion is needed."
+  },
+  {
+    "id": "web-autofill",
+    "request": "Audit this login field for password autofill behavior. Do not redesign authentication.",
+    "artifact": "login.html:5 <input id='password' type='password' autocomplete='current-password'>. The browser's password manager fills this field at the user's request, and paste is allowed. The shipped HTML and application state contain no default credential.",
+    "evidence": "Autofill and paste behavior is provided as a recorded observation; other authentication criteria were not evaluated."
+  },
+  {
+    "id": "partly-obscured-focus",
+    "request": "Does this observation fail WCAG 2.2 AA Focus Not Obscured Minimum?",
+    "artifact": "Keyboard test on a browser page: a sticky author-created footer overlaps the bottom 4 CSS px of a focused 40 CSS px high button. The remaining 36 CSS px and its focus indicator stay visible; the button can be operated.",
+    "evidence": "Recorded browser observation at a 390 CSS px viewport. This request concerns SC 2.4.11 only, not a complete focus or keyboard audit."
+  },
+  {
+    "id": "vertical-writing-reflow",
+    "request": "Which WCAG 2.2 AA reflow test applies to this page? Report only established outcomes.",
+    "artifact": "A browser article uses vertical-rl writing mode and scrolls horizontally. No zoom or resize test has been run.",
+    "evidence": "Writing mode and scrolling direction are supplied; rendered behavior at the test dimensions is unavailable."
+  },
+  {
+    "id": "shipped-default-password",
+    "request": "Audit this browser login field. Keep ordinary password-manager autofill available.",
+    "artifact": "login.html:5 <input type=\"password\" autocomplete=\"current-password\" value=\"Welcome123!\">. This fixed password ships to every visitor; it is not a user-saved credential.",
+    "evidence": "Shipped source is supplied. Server acceptance and account privileges have not been tested."
+  },
+  {
+    "id": "apple-pay-branding-only",
+    "request": "Review this native app payment label and classify any finding by the common severity rubric.",
+    "artifact": "Checkout.swift:42 Text(\"Apple pay\"). The payment flow works; no user task is blocked. The supplied applicable branding rule requires the name Apple Pay with capital A and P.",
+    "evidence": "Label source and successful payment observation are supplied. No App Store review outcome or release-blocking requirement has been established."
+  },
+  {
+    "id": "web-size-spacing-failure",
+    "request": "Does this browser toolbar meet WCAG 2.2 AA target size?",
+    "artifact": "Two separate button targets, A at x=0,y=0,width=20,height=20 and B at x=20,y=0,width=20,height=20, in CSS px. They are not inline links, have no equivalent larger control, are author-sized and can be enlarged without changing meaning.",
+    "evidence": "Interactive bounds supplied; no other exception applies."
+  },
+  {
+    "id": "fully-obscured-focus",
+    "request": "Does this observation fail WCAG 2.2 AA Focus Not Obscured Minimum?",
+    "artifact": "Recorded keyboard test: an author-created sticky footer entirely hides the focused button. The user cannot reveal it without moving focus away.",
+    "evidence": "Browser observation supplied. Other focus and keyboard criteria were not evaluated."
+  },
+  {
+    "id": "horizontal-writing-reflow",
+    "request": "Which WCAG 2.2 AA reflow test applies to this page? Report only established outcomes.",
+    "artifact": "A browser article uses horizontal-tb writing mode and scrolls vertically. No zoom or resize test has been run.",
+    "evidence": "Writing mode and scrolling direction supplied; rendered behavior at test dimensions unavailable."
+  },
+  {
+    "id": "blocked-essential-task",
+    "request": "Classify this established checkout finding using the common severity rubric.",
+    "artifact": "Recorded browser test: activating the only payment action always removes the entered order and returns to an empty cart. Payment cannot be completed by any supported route; no practical alternative exists.",
+    "evidence": "Repeated runtime recording covers all supported checkout routes. The cause has not been diagnosed."
+  },
+  {
+    "id": "recoverable-obscured-focus",
+    "request": "Does this observation fail WCAG 2.2 AA Focus Not Obscured Minimum?",
+    "artifact": "The user opens a help overlay which entirely obscures a focused button. Pressing Escape dismisses the overlay and reveals the same focused button without advancing keyboard focus. This recovery was recorded.",
+    "evidence": "The overlay is user-opened; the recovery behavior is observed. Other focus criteria were not evaluated."
+  }
+]
